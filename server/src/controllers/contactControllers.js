@@ -4,7 +4,6 @@ const sendEmail = require("../config/nodemailer");
 async function sendToAdminEmail (req, res) {
     try {
         const { userEmail, userMessage, userName, subject } = req.body;
-
         // Check if required fields are missing in the request
         if (!userName || !userEmail || !userMessage || !subject) {
             return res.status(400).json({
@@ -12,7 +11,6 @@ async function sendToAdminEmail (req, res) {
                 message: "Bad request. Name, email, subject, and message are required.",
             });
         }
-
         // Define email options
         const emailOptions = {
             from: `"E-commerce App" <${process.env.OAUTH_USER}>`,

@@ -1,6 +1,6 @@
-// Define the port for the server to listen on
 const port = process.env.PORT || 8000;
 const swaggerDoc = require('swagger-jsdoc');
+
 const options = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -13,10 +13,22 @@ const options = {
             {
                 url: `http://localhost:${port}`
             }
-        ]
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    name: 'delivery-app-session-token',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                    in: 'header',
+                },
+            },
+        },
     },
     apis: ['./src/routes/*.js']
 };
-const swaggerDocument = swaggerDoc(options)
+ 
+const swaggerDocument = swaggerDoc(options);
 
 module.exports = swaggerDocument;

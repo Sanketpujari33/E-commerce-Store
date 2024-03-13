@@ -30,14 +30,12 @@ async function isModerator(req, res, next) {
     try {
         const user = await User.findById(req.userId);
         const roles = await Role.find({ _id: { $in: user.roles } });
-
         for (let i = 0; i < roles.length; i++) {
             if (roles[i].name === "moderator") {
                 next(); // Proceed to the next middleware
                 return;
             }
         }
-
         return res.status(403).json({ message: "Require Moderator Role!" });
     } catch (error) {
         console.error(error);

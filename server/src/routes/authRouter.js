@@ -3,7 +3,6 @@ const router = require("express").Router();
 const {
   login,
   signUp,
-  google,
   validateEmailToken,
   sendConfirmationEmail,
   sendResetPasswordEmail,
@@ -36,50 +35,29 @@ const { checkIsValidUser } = require("../middleware/userValidator");
  *                 type: string
  *               lastName:
  *                 type: string
+ *               mobile:
+ *                 type: string
  *               email:
  *                 type: string
  *                 format: email
  *               password:
  *                 type: string
+ *                 format: password
  *     responses:
  *       '200':
  *         description: Successful sign-up
+ *       '400':
+ *         description: Bad request, check your request payload
+ *       '401':
+ *         description: Unauthorized, authentication failed
+ *       '409':
+ *         description: Conflict, user with the provided email already exists
+ *       '500':
+ *         description: Internal Server Error, something went wrong on the server
  *       # You can add more response codes and descriptions as needed
  */
 router.post("/signup", [checkDuplicatedEmail, checkIsValidUser], signUp); // Sign-up route
-/**
- * @swagger
- * /api/auth/google:
- *   post:
- *     summary: Sign Up or Log In with Google
- *     description: Endpoint to sign up or log in using Google authentication.
- *     tags:
- *       - Authentication
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               lastName:
- *                 type: string
- *               email:
- *                 type: string
- *                 format: email
- *               password:
- *                 type: string
- *               profilePicture:
- *                 type: string
- *                 format: uri
- *     responses:
- *       '200':
- *         description: Successful Google authentication
- *       # You can add more response codes and descriptions as needed
- */
-router.post("/google", [checkDuplicatedEmail, checkIsValidUser], google); //google route
+
 /**
  * @swagger
  * /api/auth/login:
@@ -102,7 +80,14 @@ router.post("/google", [checkDuplicatedEmail, checkIsValidUser], google); //goog
  *     responses:
  *       '200':
  *         description: Successful login
- *       # You can add more response codes and descriptions as needed
+ *       '400':
+ *         description: Bad request, check your request payload
+ *       '401':
+ *         description: Unauthorized, invalid credentials
+ *       '404':
+ *         description: Not Found, user not found
+ *       '500':
+ *         description: Internal Server Error, something went wrong on the server
  */
 router.post("/login", login); // Login route
 /**

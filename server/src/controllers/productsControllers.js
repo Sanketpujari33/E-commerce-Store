@@ -82,7 +82,7 @@ async function postNewProduct(req, res) {
         const { name, category, size, description, active, img} = req.body;
         const price = parseInt(req.body.price);
         const userId = req.params.id;
-        // // Find the user by ID in the database
+         // Find the user by ID in the database
         const users = await User.findById(userId);
         if (!users) {
             return res.status(400).json({ success: false, message: 'user Not found' });

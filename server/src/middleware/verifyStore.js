@@ -56,7 +56,7 @@ async function checkNewStore(req, res, next) {
         const storeFound = await Store.findById(users.store);
         if (storeFound) {
             return res
-                .status(404)
+                .status(400)
                 .json({ success: false, message: "The store already exists in you account" });
         }
         // Proceed to the next middleware

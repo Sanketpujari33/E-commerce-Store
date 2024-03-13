@@ -181,24 +181,17 @@ router.get("/:id", [checkIsValidId], getStoreById);
  *                 type: string
  *               phone:
  *                 type: string
+ *               cheapestPrice:
+ *                 type: string
+ *               discount:
+ *                 type: string
  *               description:
  *                 type: string
+ *     security:
+ *       - bearerAuth: []  # Reference to the security scheme
  *     responses:
  *       '200':
  *         description: Successfully created store
- *         content:
- *           application/json:
- *             example:
- *               success: true
- *               data:
- *                 _id: "65c76bfbc886323d341a5a18"
- *                 name: "Poonam Hotel"
- *                 description: "this is best hotel in the word"
- *                 address: "Kolhar"
- *                 city: "ahmednagr"
- *                 phone: "+1 123-456-7891"
- *                 img: "https://example.com/image.jpg"
- *               message: "Store added successfully"
  *       '400':
  *         description: Bad Request
  *         content:
@@ -213,6 +206,11 @@ router.get("/:id", [checkIsValidId], getStoreById);
  *             example:
  *               success: false
  *               message: "Internal Server Error"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 router.post(
     "/:id",

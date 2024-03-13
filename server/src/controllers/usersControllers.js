@@ -166,8 +166,6 @@ async function deleteUserById(req, res) {
     }
 }
 
-
-
 module.exports = {
     getAllUsers,
     deleteUserById,

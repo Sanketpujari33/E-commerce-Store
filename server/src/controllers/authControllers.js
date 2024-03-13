@@ -25,7 +25,6 @@ async function signUp(req, res) {
                 mobile,
                 password,
             });
-
         // Assign roles to the user
         if (req.body.roles) {
             const foundRoles = await Role.find({ name: { $in: roles } });
@@ -33,82 +32,27 @@ async function signUp(req, res) {
         } else {
             const role = await Role.findOne({ name: "user" });
             newUser.roles = [role._id];
-
-
         }
         const hashedPassword = await bcrypt.hash(newUser.password, 10);
         newUser.password = hashedPassword;
         // Generate a confirmation token for email verification
         const token = jwt.sign({ id: newUser.id, }, process.env.JWT_EMAIL_CONFIRMATION_KEY);
         newUser.emailToken = token;
-
         await newUser.save();
-
         // Respond with success message
-        return res.status(201).json({
+        return res.status(200).json({
             successful: true,
-            message: "User created successfully",
+            message: "Successful sign-up",
             email: newUser.email,
         });
     } catch (error) {
-        console.log(error);
-
         // Respond with an error message
         return res
             .status(500)
-            .json({ successful: false, message: "Something went wrong" });
+            .json({ successful: false, message: "Internal Server Error, something went wrong on the server" });
     }
 };
 
-// Signup Google function for user registration
-
-async function google(req, res) {
-    const { email, password, googlePhotoUrl, roles } = req.body;
-    try {
-        // Check if the user exists in the temporal database
-        const foundUser = await User.findOne({ email });
-        // Create a temporal user if not found or update an existing one
-        const newUser =
-            foundUser ||
-            new User({
-                name: req.userName,
-                email,
-                password,
-                profilePicture: googlePhotoUrl,
-            });
-        // Assign roles to the user
-        if (req.body.roles) {
-            const foundRoles = await Role.find({ name: { $in: roles } });
-            User.roles = foundRoles.map((role) => role._id);
-        } else {
-            const role = await Role.findOne({ name: "user" });
-            newUser.roles = [role._id];
-
-        }
-
-        const hashedPassword = await bcrypt.hash(newUser.password, 10);
-        newUser.password = hashedPassword;
-        // Generate a confirmation token for email verification 
-        const token = jwt.sign({ id: newUser.id, }, process.env.JWT_EMAIL_CONFIRMATION_KEY);
-        newUser.emailToken = token;
-
-        await newUser.save();
-
-        // Respond with success message
-        return res.status(201).json({
-            successful: true,
-            message: "User created successfully",
-            email: newUser.email,
-        });
-    } catch (error) {
-        console.log(error);
-
-        // Respond with an error message
-        return res
-            .status(500)
-            .json({ successful: false, message: "Something went wrong" });
-    }
-};
 
 // User login function
 async function login(req, res) {
@@ -318,15 +262,10 @@ async function validateEmailToken(req, res) {
         return res
             .status(403)
             .json({ success: false, message: "No token provided" });
-
         const decoded = jwt.verify(token, process.env.JWT_EMAIL_CONFIRMATION_KEY);
-
         const id = decoded.id;
-
         const user = await User.findById(id);
-
         if (!user) return res.status(404).json({ message: "User not found" });
-
         // Create a new user based on the temporal user's information
         const newUser = new User({
             name: user.name,
@@ -334,11 +273,9 @@ async function validateEmailToken(req, res) {
             password: await User.encryptPassword(user.password),
             roles: user.roles,
         });
-
         // Save the new user and remove the temporal user
         await newUser.save();
         await User.findByIdAndRemove(user._id);
-
         // Redirect to login page
         res.redirect(
             `${process.env.HOST || "localhost:3000"}/#/authentication/login`
@@ -352,7 +289,7 @@ async function validateEmailToken(req, res) {
 async function logout(req, res) {
     try {
         // Clear the session token cookie
-        res.clearCookie("ecommerce-app-session-token");
+        res.clearCookie("delivery-app-session-token");
         // Respond with a success message
         return res
             .status(200)
@@ -366,7 +303,6 @@ async function logout(req, res) {
 
 module.exports = {
     signUp,
-    google,
     login,
     validateEmailToken,
     sendConfirmationEmail,

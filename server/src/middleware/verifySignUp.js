@@ -4,19 +4,16 @@ const User = require("../models/userModel");
 async function checkDuplicatedEmail(req, res, next) {
     try {
         // Check if the email exists in the User collection
-        const user = await User.findOne({ email: req.body.email });
-
+        const userEmail = await User.findOne({ email: req.body.email });
         // If the email is found in the User collection, return a 302 response
-        if (user) {
-        
-            return res.status(302).json({
+        if (userEmail) {
+            return res.status(409).json({
                 successful: false,
                 message: "Email unverified",
                 redirect: `/#/authentication/confirmation`,
-                id: tempUser._id,
+                id: userEmail._id,
             });
         }
-
         // If the email is not found in either collection, proceed to the next middleware
         next();
     } catch (error) {
