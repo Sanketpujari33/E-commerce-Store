@@ -3,7 +3,7 @@ const { Role } = require("../models/roleModel");
 const Store = require("../models/storeModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
-const { Category } = require("../models/categoryModel");
+const  Category  = require("../models/categoryModel");
 const { cloudinary } = require("../config/cloudinary");
 const fs = require("fs");
 

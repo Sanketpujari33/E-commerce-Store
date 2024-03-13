@@ -1,4 +1,4 @@
-const { Category } = require("../models/categoryModel");
+const  Category  = require("../models/categoryModel");
 const User = require('../models/userModel')
 const Store = require('../models/storeModel')
 const Product = require("../models/productModel"); // Import the Product model with correct variable name

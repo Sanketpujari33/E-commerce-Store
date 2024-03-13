@@ -1,5 +1,5 @@
 {
-  "name": "node",
+  "name": "server",
   "version": "1.0.0",
   "engines": {
     "node": "14.x"
@@ -11,7 +11,7 @@
     "dev": "nodemon server.js",
     "client": "npm start --prefix ./frontend ",
     "app": "concurrently \"npm start\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
