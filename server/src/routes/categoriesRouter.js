@@ -77,7 +77,6 @@ router.get("/", getAllCategories); // Route to get all categories
  *               # Include more details based on your actual response structure
  *       # You can add more response codes and descriptions as needed
  */
-
 router.post(
     "/:id",
     [verifyToken, storeOwner,checkDuplicatedCategory], // Middleware: Verify token, check admin role, and check duplicated category
@@ -192,34 +191,9 @@ router.put(
  *               success: false
  *               message: "Something went wrong, could not delete category"
  */
-
-// Sample request object:
-// {
-//   "categoryId": "65c65c468e49fea6b008bed8"
-// }
-
-// Sample response for '200':
-// {
-//   "success": true,
-//   "message": "Category and associated products deleted successfully"
-// }
-
-// Sample response for '404':
-// {
-//   "success": false,
-//   "message": "Category not found"
-// }
-
-// Sample response for '500':
-// {
-//   "success": false,
-//   "message": "Something went wrong, could not delete category"
-// }
-
 router.delete(
     "/:id",
     [verifyToken, storeOwner], // Middleware: Verify token, check admin role, and check category existence
     deleteCategory // Controller function: Delete an existing category
 );
-
 module.exports = router;

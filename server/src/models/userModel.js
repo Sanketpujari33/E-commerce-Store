@@ -35,8 +35,6 @@ const userSchema = new Schema(
     mobile: {
       type: String,
       required: true,
-      minlength: 10,
-      maxlength: 10,
       unique: true
     },
     roles: [

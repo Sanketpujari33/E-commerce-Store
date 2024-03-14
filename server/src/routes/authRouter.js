@@ -57,7 +57,6 @@ const { checkIsValidUser } = require("../middleware/userValidator");
  *       # You can add more response codes and descriptions as needed
  */
 router.post("/signup", [checkDuplicatedEmail, checkIsValidUser], signUp); // Sign-up route
-
 /**
  * @swagger
  * /api/auth/login:
@@ -220,6 +219,5 @@ router.get("/verification/:token", validateEmailToken); // Email verification ro
  *       # You can add more response codes and descriptions as needed
  */
 router.get("/logout", logout); // Logout route
-
 
 module.exports = router;

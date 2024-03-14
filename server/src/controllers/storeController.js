@@ -150,7 +150,7 @@ const getStoreById = async (req, res) => {
 const deleteStoreById = async (req, res) => {
     try {
         const userId = req.params.id;
-        // // Find the user by ID in the database
+        // Find the user by ID in the database
         const users = await User.findById(userId);
         if (!users) {
             return res.status(400).json({ success: false, message: 'user Not found' });

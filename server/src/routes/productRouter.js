@@ -14,26 +14,27 @@ const {checkCategoryExist} = require("../middleware/verifyProduct");
 const checkIsValidId = require("../middleware/checkIsValidId");
 const { deleteReview, addReview, updateReview } = require('../controllers/ratingAndReviewsControllers');
 
+
 // Multer configuration for handling file uploads
-const storage = multer.diskStorage({
+const storageProduct = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "src/storage/upload/image/product");
+      cb(null, "src/storage/upload/image/Product");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+      cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
 const fileFilter = (req, file, cb) => {
   if (!file) {
-    cb(null, false);
+      cb(null, false);
   } else {
-    cb(null, true);
+      cb(null, true);
   }
 };
 
-const upload = multer({
-  storage: storage,
+const uploadProduct = multer({
+  storage: storageProduct,
   limits: { fieldSize: 10 * 1024 * 1024 },
   fileFilter: fileFilter,
 });
@@ -95,8 +96,6 @@ const upload = multer({
  *               success: false
  *               message: Internal Server Error
  */
-
-
 router.get("/", getAllProducts);
 /**
  * @swagger
@@ -106,8 +105,6 @@ router.get("/", getAllProducts);
  *     description: Retrieve details of a product based on its ID.
  *     tags:
  *       - Products
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -123,7 +120,6 @@ router.get("/", getAllProducts);
  *             example:
  *               success: true
  *               data:
- *                 // Product details
  *       '404':
  *         description: Product not found.
  *         content:
@@ -139,7 +135,6 @@ router.get("/", getAllProducts);
  *               success: false
  *               message: Internal Server Error
  */
-
 router.get("/:id", [checkIsValidId], getProductById);
 /**
  * @swagger
@@ -207,12 +202,7 @@ router.get("/:id", [checkIsValidId], getProductById);
  *               success: false
  *               message: Validation error or other issues
  */
-
-router.post(
-  "/:id",
-  [verifyToken, storeOwner, upload.single("img"), checkCategoryExist],
-  postNewProduct
-);
+router.post("/:id",[verifyToken, storeOwner, uploadProduct.single("img"), checkCategoryExist],postNewProduct);
 /**
  * @swagger
  * /api/products/{id}:
@@ -280,12 +270,7 @@ router.post(
  *               success: false
  *               message: Product not found
  */
-
-router.put(
-  "/:id",
-  [verifyToken, storeOwner, upload.single("img")],
-  updateProductById
-);
+router.put("/:id",[verifyToken, storeOwner, uploadProduct.single("img"),checkCategoryExist],updateProductById);
 /**
  * @swagger
  * /api/products/{id}:
@@ -464,7 +449,5 @@ router.put('/reviews/:id',[verifyToken], updateReview);
  *         description: Internal Server Error
  */
 router.delete('/reviews/:id',[verifyToken], deleteReview);
-
-
 
 module.exports = router;

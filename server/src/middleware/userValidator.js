@@ -18,10 +18,10 @@ function checkIsValidUser(req, res, next) {
     if (!lastName || !name || typeof lastName !== 'string' || typeof name !== 'string') {
         return res.status(400).json({ successful: false, message: 'Full name is required and should be valid' });
     }
-    req.userName = `${name} ${lastName}`;
     if (password.length < 5) {
         return res.status(400).json({ successful: false, message: `Password min length is 5` });
     }
+    req.userName = `${name} ${lastName}`;
     next();
 };
 

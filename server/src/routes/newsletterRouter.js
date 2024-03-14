@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const {verifyToken} = require("../middleware/authJwt");
 // Import the controller function for subscribing users to the newsletter
 const { subscribeUser } = require("../controllers/newsLetterController");
 
@@ -22,6 +22,8 @@ const { subscribeUser } = require("../controllers/newsLetterController");
  *               userEmail:
  *                 type: string
  *                 description: The email of the user to subscribe.
+ *       security:
+ *       - bearerAuth: []  # Reference to the security scheme
  *     responses:
  *       '200':
  *         description: Successfully subscribed user to the newsletter
@@ -43,8 +45,12 @@ const { subscribeUser } = require("../controllers/newsLetterController");
  *             example:
  *               success: false
  *               message: "Subscription failed"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
-
-router.post("/subscription", subscribeUser);
+router.post("/subscription", [verifyToken],subscribeUser);
 
 module.exports = router;

@@ -24,14 +24,14 @@ async function checkDuplicatedStore(req, res, next) {
 async function checkStoreExist(req, res, next) {
     try {
         const userId = req.params.id;
-        // // Find the user by ID in the database
+        // Find the user by ID in the database
         const users = await User.findById(userId);
         // Find the store by ID in the database
         const storeFound = await Store.findById(users.store);
         if (!storeFound) {
             return res
-                .status(404)
-                .json({ success: false, message: "No store found" });
+            .status(404)
+            .json({ success: false, message: "No store found" });
         }
         // If the store exists, set req.id and req.storeName for later use
         req.id = storeFound._id;

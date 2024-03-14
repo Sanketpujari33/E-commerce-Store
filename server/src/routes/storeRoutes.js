@@ -6,7 +6,6 @@ const router = express.Router();
 const {
     verifyToken,
     storeOwner,
-    isAdmin
 } = require("../middleware/authJwt");
 const checkIsValidId = require('../middleware/checkIsValidId')
 const { checkDuplicatedStore, checkStoreExist, checkNewStore } = require('../middleware/verifyStore')
@@ -212,11 +211,7 @@ router.get("/:id", [checkIsValidId], getStoreById);
  *       scheme: bearer
  *       bearerFormat: JWT
  */
-router.post(
-    "/:id",
-    [verifyToken, upload.single("img"), checkNewStore, checkDuplicatedStore],
-    postNewStore
-);
+router.post("/:id",[verifyToken, upload.single("img"), checkNewStore, checkDuplicatedStore], postNewStore);
 /**
  * @swagger
  * /api/stores/{id}:
@@ -244,7 +239,7 @@ router.post(
  *                 format: binary
  *               name:
  *                 type: string
- *               description:
+ *               lic_no:
  *                 type: string
  *               address:
  *                 type: string
@@ -252,26 +247,17 @@ router.post(
  *                 type: string
  *               phone:
  *                 type: string
- *               user:
+ *               cheapestPrice:
  *                 type: string
- *                 format: uuid
+ *               discount:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     security:
+ *       - bearerAuth: []  # Reference to the security scheme
  *     responses:
  *       '200':
  *         description: Successfully updated store
- *         content:
- *           application/json:
- *             example:
- *               success: true
- *               data:
- *                 _id: "65c60c1cf16bb61edca6ec62"
- *                 name: "Updated Store"
- *                 description: "Updated description"
- *                 address: "Updated Address"
- *                 city: "Updated City"
- *                 phone: "+1 987-654-3210"
- *                 img: "https://example.com/updated-image.jpg"
- *                 active: true
- *               message: "Store updated successfully"
  *       '400':
  *         description: Bad Request
  *         content:
@@ -293,13 +279,13 @@ router.post(
  *             example:
  *               success: false
  *               message: "Internal Server Error"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
-
-router.put(
-    "/:id",
-    [verifyToken, storeOwner,upload.single("img"), checkDuplicatedStore,checkStoreExist],
-    updateStoreById
-);
+router.put("/:id",[verifyToken, storeOwner, upload.single("img"), checkDuplicatedStore,checkStoreExist],updateStoreById);
 /**
  * @swagger
  * /api/stores/{id}:
@@ -315,6 +301,8 @@ router.put(
  *         required: true
  *         schema:
  *           type: string
+ *     security:
+ *       - bearerAuth: []  # Reference to the security scheme
  *     responses:
  *       '200':
  *         description: Successfully deleted store, products, and categories
@@ -344,10 +332,13 @@ router.put(
  *             example:
  *               success: false
  *               message: "Internal Server Error"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
-
 router.delete("/:id", [verifyToken, storeOwner], deleteStoreById);
-
 // Routes for Store Reviews
 /**
  * @swagger
@@ -480,6 +471,5 @@ router.put('/reviews/:id',[verifyToken], updateReview);
  *         description: Internal Server Error
  */
 router.delete('/reviews/:id',[verifyToken], deleteReview);
-
 // Export the router
 module.exports = router;

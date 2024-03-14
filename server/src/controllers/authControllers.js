@@ -47,6 +47,7 @@ async function signUp(req, res) {
         });
     } catch (error) {
         // Respond with an error message
+        console.log(error);
         return res
             .status(500)
             .json({ successful: false, message: "Internal Server Error, something went wrong on the server" });

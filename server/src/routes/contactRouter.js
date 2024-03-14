@@ -54,7 +54,6 @@ const { sendToAdminEmail } = require("../controllers/contactControllers");
  *               successful: false
  *               message: "Something went wrong"
  */
-
 router.post("/", sendToAdminEmail);
 
 module.exports = router;

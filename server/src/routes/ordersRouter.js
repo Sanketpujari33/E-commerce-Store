@@ -90,7 +90,6 @@ const checkIsValidId = require("../middleware/checkIsValidId");
  *                   type: string
  *                   example: "Something went wrong, couldn't get orders"
  */
-
 router.get("/", [verifyToken, isAdminOrIsModerator], getAllOrders);
 /**
  * @swagger
@@ -213,7 +212,6 @@ router.get("/", [verifyToken, isAdminOrIsModerator], getAllOrders);
  *                   type: string
  *                   example: "Internal Server Error"
  */
-
 router.post("/", [verifyToken, checkProfileState], createOrder);
 /**
  * @swagger
@@ -282,7 +280,6 @@ router.post("/", [verifyToken, checkProfileState], createOrder);
  *                   type: string
  *                   example: "Something went wrong, couldn't get the order"
  */
-
 router.get("/:id", [verifyToken, checkIsValidId], getOrderById);
 /**
  * @swagger
@@ -367,12 +364,7 @@ router.get("/:id", [verifyToken, checkIsValidId], getOrderById);
  *                   type: string
  *                   example: "Invalid state or order is already closed"
  */
-
-router.put(
-    "/:id",
-    [verifyToken, isAdminOrIsModerator, checkOrderExist, checkAllowedUpdates],
-    actualizeOrderState
-);
+router.put("/:id",[verifyToken, isAdminOrIsModerator, checkOrderExist, checkAllowedUpdates],actualizeOrderState);
 /**
  * @swagger
  * /api/orders/{id}:
@@ -431,7 +423,6 @@ router.put(
  *                   type: string
  *                   example: "Order not found or user not authorized"
  */
-
 router.delete("/:id", [verifyToken, checkAllowedDelete], deleteOrderById);
 /**
  * @swagger
@@ -505,11 +496,5 @@ router.delete("/:id", [verifyToken, checkAllowedDelete], deleteOrderById);
  *                   type: string
  *                   example: "User not found or user not authorized"
  */
-
-router.get(
-    "/user/:userId",
-    [verifyToken, checkAuthorizedUser],
-    getAllUserOrders
-);
-
+router.get("/user/:userId",[verifyToken, checkAuthorizedUser],getAllUserOrders);
 module.exports = router;
