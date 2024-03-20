@@ -97,12 +97,19 @@ router.post("/login", login); // Login route
  *     description: Endpoint to retrieve user session information.
  *     tags:
  *       - Authentication
+ *     security:
+ *       - bearerAuth: []  # Reference to the security scheme
  *     responses:
  *       '200':
  *         description: Successful retrieval of user session
  *         content:
  *           application/json:
  *             example:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  *               // Include an example response if applicable
  */
 router.get("/session", getSession); // Get session information route
