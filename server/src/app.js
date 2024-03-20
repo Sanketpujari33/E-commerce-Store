@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// const cors = require("cors");
+const cors = require('cors');
 require("dotenv").config({ path: ".env" });
 const path = require("path");
 const morgan = require("morgan");
@@ -47,6 +47,16 @@ app.use(morgan("tiny"));
 //   // Serve frontend in development mode
 //   app.use(express.static(path.join(__dirname, "/client")));
 // }
+
+// Enable CORS for all origins in development mode
+if (process.env.NODE_ENV === "development") {
+  app.use(cors({
+    exposedHeaders: ['Cookie', 'Authorization'],
+    credentials: true,
+    origin: '*'
+  }));
+}
+
 
 // Define routes with tags
 /**
