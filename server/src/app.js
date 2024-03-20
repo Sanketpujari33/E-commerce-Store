@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+// const cors = require("cors");
 require("dotenv").config({ path: ".env" });
 const path = require("path");
 const morgan = require("morgan");
@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Enable CORS for cross-origin requests
-app.use(cors());
+// app.use(cors());
 
 // HTTP request logger middleware (Morgan) with "tiny" format
 app.use(morgan("tiny"));
