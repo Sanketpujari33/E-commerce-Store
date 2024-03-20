@@ -49,7 +49,6 @@ const createAdmin = async () => {
         };
 
         await createUserIfNotExists(adminData);
-        console.log("Admin User Created!");
     } catch (err) {
         console.error("Error creating admin user:", err);
     }
@@ -66,7 +65,6 @@ const createModerator = async () => {
         };
 
         await createUserIfNotExists(moderatorData);
-        console.log("Moderator User Created!");
     } catch (err) {
         console.error("Error creating moderator user:", err);
     }

@@ -12,7 +12,7 @@ const { connectIO } = require("./src/config/io");
 var cron = require('node-cron');
 
 // Create an HTTP server using the app
-const http = require("http").createServer(app);
+const http = require("https").createServer(app);
 
 // Import functions for initial setup
 const { createRoles, createAdmin, createModerator } = require("./src/libs/initialSetUp");
