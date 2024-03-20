@@ -5,11 +5,11 @@ const cloudinary = require('cloudinary').v2; // Assuming you have cloudinary con
 const validator = require('validator'); // You may need to install this library
 // Middleware to validate user input when creating a new user
 function checkIsValidUser(req, res, next) {
-    const { lastName, email, name, password } = req.body;
-    if (!email || !lastName || !name || !password) {
+    const { name, lastName, email, mobile, password } = req.body;
+    if (!email || !lastName || !mobile || !name || !password) {
         return res.status(400).json({
             successful: false,
-            message: `Missing inputs, name: ${name} lastName: ${lastName} email:${email} password:${password}`,
+            message: `Missing inputs, name: ${name} lastName: ${lastName} email:${email} mobile:${mobile} password:${password}`,
         });
     }
     if (!validator.isEmail(email)) {
@@ -28,7 +28,7 @@ function checkIsValidUser(req, res, next) {
 // Middleware to validate user input when updating user information
 
 function checkIsValidUpdate(req, res, next) {
-    const { profilePicture, email, lastName, name, newPassword, area, state, city} = req.body;
+    const {mobile, email, lastName, name, newPassword, area, state, city} = req.body;
     const number = parseInt(req.body.number);
     const pinCode = parseInt(req.body.pinCodeNumber);
     const streetNumber = parseInt(req.body.houseNo);
@@ -38,6 +38,7 @@ function checkIsValidUpdate(req, res, next) {
     if (!validator.isEmail(email)) {
         return res.status(400).json({ successful: false, message: 'Email is not valid' });
     }
+    
     if (!isNaN(number) && (number.toString().length < 10 || typeof number !== 'number')) {
         return res.status(400).json({ successful: false, message: 'Number is not valid' });
     }

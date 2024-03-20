@@ -22,13 +22,13 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "cloudinary": "^1.25.2",
     "concurrently": "^6.2.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.19.0",
     "faker": "^5.5.3",
     "googleapis": "^73.0.0",
     "imagemin": "^8.0.0",
@@ -46,6 +46,7 @@
     "socket.io": "^4.1.2",
     "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "twilio": "^5.0.1"
   }
 }

@@ -17,9 +17,7 @@ async function signUp(req, res) {
         // Check if the user exists in the temporal database
         const foundUser = await User.findOne({ email });
         // Create a temporal user if not found or update an existing one
-        const newUser =
-            foundUser ||
-            new User({
+        const newUser =foundUser || new User({
                 name: req.userName,
                 email,
                 mobile,
