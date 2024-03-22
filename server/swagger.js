@@ -11,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: `http://localhost:${port}`
+                url: `http://localhost:${port}`  // Change protocol to "http"
             }
         ],
         components: {

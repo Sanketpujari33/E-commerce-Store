@@ -27,26 +27,9 @@ app.use(express.json());
 // Middleware for parsing cookies
 app.use(cookieParser());
 
-// Enable CORS for cross-origin requests
-// app.use(cors());
 
-// HTTP request logger middleware (Morgan) with "tiny" format
-app.use(morgan("tiny"));
-
-
-// Serve static files from the "media" directory
-// app.use("/media", express.static(path.join(__dirname, "storage", "upload")));
-
-// Serve frontend build in production mode
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "/client", "build")));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "/client", "build", "index.html"));
-//   });
-// } else {
-//   // Serve frontend in development mode
-//   app.use(express.static(path.join(__dirname, "/client")));
-// }
+// Enable CORS for all origins
+app.use(cors());
 
 // Enable CORS for all origins in development mode
 // if (process.env.NODE_ENV === "development") {
@@ -58,12 +41,31 @@ app.use(morgan("tiny"));
 // }
 
 // CORS middleware to allow requests from Swagger UI
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   next();
+// });
+
+// HTTP request logger middleware (Morgan) with "tiny" format
+app.use(morgan("tiny"));
+
+
+// Serve static files from the "media" directory
+app.use("/media", express.static(path.join(__dirname, "storage", "upload")));
+
+// Serve frontend build in production mode
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client", "build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/client", "build", "index.html"));
+  });
+} else {
+  // Serve frontend in development mode
+  app.use(express.static(path.join(__dirname, "/client")));
+}
+
 
 // Define routes with tags
 /**
