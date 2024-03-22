@@ -30,7 +30,7 @@ createModerator();
 connectIO(http);
 
 // Define the port for the server to listen on
-const port = process.env.PORT ;
+const port = process.env.PORT || 8000;
 
 // Schedules given task to be executed whenever the cron expression ticks.
 cron.schedule('* * * * *', () => {

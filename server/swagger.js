@@ -1,3 +1,4 @@
+const port = process.env.PORT || 8000;
 const swaggerDoc = require('swagger-jsdoc');
 
 const options = {
@@ -10,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: `http://localhost:7000`  // Change protocol to "http"
+                url: `http://localhost:${port}`  // Change protocol to "http"
             }
         ],
         components: {

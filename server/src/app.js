@@ -32,13 +32,14 @@ app.use(cookieParser());
 // app.use(cors());
 
 // Enable CORS for all origins in development mode
-// if (process.env.NODE_ENV === "development") {
+// Configure CORS middleware to allow access from all origins
+if (process.env.NODE_ENV === "development") {
   app.use(cors({
-    exposedHeaders: ['Cookie', 'Authorization'],
-    credentials: true,
-    origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
+    exposedHeaders: ['Cookie', 'Authorization'], // Expose specific headers
+    credentials: true, // Allow credentials (e.g., cookies)
+    origin: '*', // Allow access from all origins
   }));
-// }
+}
 
 // CORS middleware to allow requests from Swagger UI
 app.use((req, res, next) => {
