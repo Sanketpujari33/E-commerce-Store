@@ -35,18 +35,18 @@ app.use(morgan("tiny"));
 
 
 // Serve static files from the "media" directory
-app.use("/media", express.static(path.join(__dirname, "storage", "upload")));
+// app.use("/media", express.static(path.join(__dirname, "storage", "upload")));
 
 // Serve frontend build in production mode
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/client", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "/client", "build", "index.html"));
-  });
-} else {
-  // Serve frontend in development mode
-  app.use(express.static(path.join(__dirname, "/client")));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/client", "build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "/client", "build", "index.html"));
+//   });
+// } else {
+//   // Serve frontend in development mode
+//   app.use(express.static(path.join(__dirname, "/client")));
+// }
 
 // Enable CORS for all origins in development mode
 if (process.env.NODE_ENV === "development") {

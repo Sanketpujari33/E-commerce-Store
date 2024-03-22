@@ -119,7 +119,7 @@ const postNewStore = async (req, res) => {
         });
     } catch (error) {
         console.error("Error adding store:", error);
-        return res.status(500).json({
+        return res.status(500).json({ 
             success: false,
             message: "Internal Server Error",
         });
