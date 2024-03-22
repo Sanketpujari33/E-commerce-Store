@@ -49,14 +49,21 @@ app.use(morgan("tiny"));
 // }
 
 // Enable CORS for all origins in development mode
-if (process.env.NODE_ENV === "development") {
-  app.use(cors({
-    exposedHeaders: ['Cookie', 'Authorization'],
-    credentials: true,
-    origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
-  }));
-}
+// if (process.env.NODE_ENV === "development") {
+//   app.use(cors({
+//     exposedHeaders: ['Cookie', 'Authorization'],
+//     credentials: true,
+//     origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
+//   }));
+// }
 
+// CORS middleware to allow requests from Swagger UI
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 // Define routes with tags
 /**
