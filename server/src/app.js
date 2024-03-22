@@ -36,8 +36,17 @@ app.use(cookieParser());
   app.use(cors({
     exposedHeaders: ['Cookie', 'Authorization'],
     credentials: true,
+    origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN,
   }));
 // }
+
+// CORS middleware to allow requests from Swagger UI
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 // HTTP request logger middleware (Morgan) with "tiny" format
 app.use(morgan("tiny"));
