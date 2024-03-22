@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(cors({
     exposedHeaders: ['Cookie', 'Authorization'], // Expose specific headers
     credentials: true, // Allow credentials (e.g., cookies)
-    origin: 'http://e-commerce-store-api-r1dx.onrender.com', // Allow access from all origins
+    origin: process.env.ACCESS_CONTROL_ALLOW_ORIGIN , // Allow access from all origins
   }));
 }
 

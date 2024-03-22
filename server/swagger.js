@@ -1,5 +1,5 @@
 const swaggerDoc = require('swagger-jsdoc');
-
+require("dotenv").config({ path: ".env" });
 const options = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -10,7 +10,7 @@ const options = {
         },
         servers: [
             {
-                url: `http://e-commerce-store-api-r1dx.onrender.com`  // Change protocol to "http"
+                url: process.env.ACCESS_CONTROL_ALLOW_ORIGIN 
             }
         ],
         components: {
